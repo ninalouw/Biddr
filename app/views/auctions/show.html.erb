@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row">
   <div class="col-xs-10 col-sm-11 goal-show">
     <h1><%= @auction.title %></h1>
@@ -14,4 +15,32 @@
                             method: :delete,
                             data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   </div>
+</div>
+<hr>
+<div class="row">
+  <div id='bid-form'>
+    <%= @bid.errors.full_messages.join(', ') %>
+    <div class="col-xs-12">
+      <%= simple_form_for [@auction, @bid] do |f| %>
+        <div class="form-group">
+          <%= f.input :bid_amount %>
+        </div>
+          <%= f.submit class: "btn btn-default" %>
+      <% end %>
+      <hr/>
+    </div>
+  </div>
+
+  <% @auction.bids.each do |bid| %>
+    <div class="col-xs-11">
+      $<%= bid.bid_amount %>&nbsp bid
+    </div>
+    <!-- <div class="col-xs-1">
+        <%#= link_to 'Delete', bid_path(bid),
+                    method: :delete,
+                    data: { confirm: 'are you sure?' },
+                    class: "btn btn-danger" %>
+    </div> -->
+  </div>
+    <% end %>
 </div>
