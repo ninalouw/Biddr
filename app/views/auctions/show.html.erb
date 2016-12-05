@@ -3,10 +3,8 @@
   <div class="col-xs-10 col-sm-11 goal-show">
     <h1><%= @auction.title %></h1>
     <p><%= @auction.details %></p>
-    <p>
       <!-- Created By: <%#= @auction.user_full_name %> -->
-    </p>
-    <p><%= @auction.ends_on %></p>
+    <p><%= @auction.ends_on %> date</p>
     <p>$<%= @auction.reserve_price %></p>
 
       <%= link_to 'Edit', edit_auction_path(@auction), class: 'btn btn-primary' %>
@@ -14,6 +12,37 @@
       <%= link_to 'Delete', auction_path(@auction),
                             method: :delete,
                             data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+    <% if @auction.draft? %>
+        <%= link_to 'Publish', publish_path(@auction),
+                                method: :post,
+                                data: {confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', cancel_path(@auction),
+                                method: :post,
+                                data: {confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
+      <% elsif @auction.published? %>
+      <p>Auction is published</p>
+    <% end %>
+
+    <% if @auction.published? %>
+        <%= link_to 'Cancel', cancel_path(@auction),
+                                method: :post,
+                                data: {confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
+        <%= link_to 'Re-draft', draft_path(@auction),
+                                method: :post,
+                                data: {confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
+      <% elsif @auction.canceled? %>
+      <p>Auction is canceled</p>
+      <% elsif @auction.draft? %>
+      <p>Auction has been re-drafted</p>
+    <% end %>
+
+    <% if @auction.canceled? %>
+        <%= link_to 'Re-draft', draft_path(@auction),
+                                method: :post,
+                                data: {confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
+      <% elsif @auction.draft? %>
+    <% end %>
   </div>
 </div>
 <hr>

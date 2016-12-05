@@ -9,6 +9,7 @@ class AuctionsController < ApplicationController
   def create
     @auction = Auction.new auction_params
     @auction.user = current_user
+    @auction.ends_on = params[:auction][:ends_on]
     if @auction.save
       flash[:notice] = 'Auction Created!'
       redirect_to auction_path(@auction)
@@ -51,5 +52,9 @@ class AuctionsController < ApplicationController
 
   def find_auction
     @auction = Auction.find params[:id]
+  end
+
+  def to_date
+
   end
 end
