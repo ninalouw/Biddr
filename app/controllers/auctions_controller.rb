@@ -23,7 +23,7 @@ class AuctionsController < ApplicationController
   end
 
   def index
-    @auction = Auction.order(created_at: :desc)
+    @auctions = Auction.order(created_at: :desc)
   end
 
   def edit

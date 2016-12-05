@@ -1,0 +1,15 @@
+
+<div class = "row">
+  <div class = "col-md-12">
+   <h1>Auctions</h1>
+  </div>
+</div>
+
+<div class = "auctions row">
+  <div class = "col-md-12">
+    <% @auctions.each do |a| %>
+    <%= link_to a.title, auction_path(a) %>
+   <hr>
+    <% end %>
+  </div>
+</div>
