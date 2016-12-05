@@ -32,28 +32,28 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <%# if user_signed_in? %>
+          <% if user_signed_in? %>
             <li>
-              <p class="navbar-text">Hello, <%#= current_user.first_name %></p>
+              <p class="navbar-text">Hello, <%= current_user.first_name %></p>
             </li>
             <li>
-              <%#= button_to 'Sign out',
+              <%= button_to 'Sign out',
                 sessions_path,
                 method: :delete,
                 class: 'btn btn-default navbar-btn'
                 %>
               </li>
-          <%# else %>
+          <% else %>
           <div class="dropdown">
             <a id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               Sign In or Sign Up
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dLabel">
-              <li><%#= link_to 'Sign up with Email', new_user_path %></li>
-              <li><%#= link_to 'Sign In', new_session_path %></li>
+              <li><%= link_to 'Sign up with Email', new_user_path %></li>
+              <li><%= link_to 'Sign In', new_session_path %></li>
               <li><%#= link_to 'Sign In with Twitter', sign_in_with_twitter_path %></li>
-            <%# end %>
+            <% end %>
             </ul>
           </div>
         </ul>

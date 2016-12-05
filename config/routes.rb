@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   resources :auctions do
     resources :bids, only:[:create, :destroy]
   end
+  resources :users, only: [:create, :new]
+  resources :sessions, only: [:new, :create] do
+    delete :destroy, on: :collection
+  end
 end
