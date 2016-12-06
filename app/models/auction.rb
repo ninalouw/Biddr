@@ -58,4 +58,9 @@ class Auction < ApplicationRecord
     user ? user.last_name : "Anonymous"
   end
 
+  def max_amount
+    bids.max.bid_amount
+  end
+
+
 end

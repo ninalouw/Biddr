@@ -12,6 +12,7 @@ class User < ApplicationRecord
                     format: VALID_EMAIL_REGEX
 
   has_many :auctions, dependent: :nullify
+  has_many :bids, dependent: :nullify
 
   def full_name
     "#{first_name} #{last_name}".strip.squeeze(' ').titleize
