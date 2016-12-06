@@ -5,8 +5,7 @@ class Auction < ApplicationRecord
   validates :title, presence: true,
                     uniqueness: { case_sensitive: false,
                                   message: 'must be unique' }
-  validates :details, length: { minimum: 5 },
-                       uniqueness: { scope: :title }
+  validates :details, length: { minimum: 5 }
 
    include AASM
   aasm whiny_transitions: true do
