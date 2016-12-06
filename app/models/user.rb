@@ -19,8 +19,8 @@ class User < ApplicationRecord
   end
 
   private
-  def downcase_email
-    self.email.downcase! if email.present?
-  end
 
+  def downcase_email
+    email.downcase! if email.present?
+  end
 end

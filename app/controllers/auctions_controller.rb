@@ -3,7 +3,7 @@ class AuctionsController < ApplicationController
   before_action :find_auction, only: [:edit, :update, :destroy, :show]
 
   def new
-  @auction = Auction.new
+    @auction = Auction.new
   end
 
   def create
@@ -46,6 +46,7 @@ class AuctionsController < ApplicationController
   end
 
   private
+
   def auction_params
     params.require(:auction).permit([:title, :details, :ends_on, :reserve_price])
   end
@@ -55,6 +56,5 @@ class AuctionsController < ApplicationController
   end
 
   def to_date
-
   end
 end

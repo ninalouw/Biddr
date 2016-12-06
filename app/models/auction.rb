@@ -1,45 +1,44 @@
 class Auction < ApplicationRecord
   belongs_to :user
-  has_many :bids, lambda { order(created_at: :DESC) }, dependent: :destroy
+  has_many :bids, -> { order(created_at: :DESC) }, dependent: :destroy
 
   validates :title, presence: true,
                     uniqueness: { case_sensitive: false,
                                   message: 'must be unique' }
   validates :details, length: { minimum: 5 }
 
-   include AASM
+  include AASM
   aasm whiny_transitions: true do
-   state :draft, initial: true
-   state :published
-   state :reserve_met
-   state :won
-   state :canceled
-   state :reserve_not_met
-     event :publish do
-       transitions from: :draft, to: :published
-     end
+    state :draft, initial: true
+    state :published
+    state :reserve_met
+    state :won
+    state :canceled
+    state :reserve_not_met
+    event :publish do
+      transitions from: :draft, to: :published
+    end
 
-     event :met do
-       transitions from: :published, to: :reserve_met
-     end
+    event :met do
+      transitions from: :published, to: :reserve_met
+    end
 
-     event :win do
-       transitions from: [:published, :reserve_met], to: :won
-     end
+    event :win do
+      transitions from: [:published, :reserve_met], to: :won
+    end
 
-     event :cancel do
-       transitions from: [:draft, :published, :won], to: :canceled
-     end
+    event :cancel do
+      transitions from: [:draft, :published, :won], to: :canceled
+    end
 
-     event :not_met do
-       transitions from: :published, to: :reserve_not_met
-     end
+    event :not_met do
+      transitions from: :published, to: :reserve_not_met
+    end
 
-     event :draft do
-       transitions from: [:canceled, :published], to: :draft
-     end
+    event :draft do
+      transitions from: [:canceled, :published], to: :draft
+    end
   end
-
 
   def user_full_name
     if user
@@ -50,16 +49,14 @@ class Auction < ApplicationRecord
   end
 
   def user_first_name
-    user ? user.first_name : "Anonymous"
+    user ? user.first_name : 'Anonymous'
   end
 
   def user_last_name
-    user ? user.last_name : "Anonymous"
+    user ? user.last_name : 'Anonymous'
   end
 
   def max_amount
     bids.max.bid_amount
   end
-
-
 end

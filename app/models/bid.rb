@@ -5,6 +5,6 @@ class Bid < ApplicationRecord
   validates :bid_amount, presence: true
 
   def user_full_name
-    user ? user.full_name : "Anonymous"
+    user ? user.full_name : 'Anonymous'
   end
 end

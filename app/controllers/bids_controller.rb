@@ -1,7 +1,7 @@
 class BidsController < ApplicationController
   def create
     @bids = Bid.order(amount: :DESC)
-    @auction        = Auction.find params[:auction_id]
+    @auction = Auction.find params[:auction_id]
     bid_params    = params.require(:bid).permit(:bid_amount)
     @bid          = Bid.new bid_params
     @bid.auction = @auction
