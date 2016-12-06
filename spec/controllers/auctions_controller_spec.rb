@@ -29,7 +29,7 @@ RSpec.describe AuctionsController, type: :controller do
     context 'with valid params' do
       before { request.session[:user_id] = user.id }
       def valid_request
-        post :create, params: { auction: attributes_for(:auction) }
+        post :create, params: { auction: attributes_for(:auction), user: user }
       end
       it 'saves a record to the database' do
         count_before = Auction.count
@@ -43,6 +43,7 @@ RSpec.describe AuctionsController, type: :controller do
       end
     end
     context 'with invalid params' do
+      before { request.session[:user_id] = user.id }
       def invalid_request
         post :create, params: { auction: attributes_for(:auction, title: nil) }
       end
